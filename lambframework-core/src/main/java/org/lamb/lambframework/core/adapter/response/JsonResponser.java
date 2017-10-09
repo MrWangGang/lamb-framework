@@ -2,17 +2,11 @@ package org.lamb.lambframework.core.adapter.response;
 
 import org.lamb.lambframework.core.aspect.config.JsonSymbolicFinalConfig;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
 /**
  * Created by WangGang on 2017/7/4 0004.
  * E-mail userbean@outlook.com
  * The final interpretation of this procedure is owned by the author
  */
-
-@Component
-@Scope("prototype")
 public class JsonResponser {
 
 

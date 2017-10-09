@@ -5,7 +5,6 @@ import org.apache.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
@@ -21,17 +20,17 @@ public class JsonSymbolicBodyAspect {
 
     private Logger logger = Logger.getLogger(JsonSymbolicBodyAspect.class);
 
-    @Autowired
-    private JsonResponser jsonResponser;
-
     /*
         * 定义一个切入点
         */
     @Around(value = "execution(public String *(..)) && @annotation(org.lamb.lambframework.core.annotation.JsonSymbolicBody)")
     public String processJsonReturnValue(ProceedingJoinPoint joinPoint) throws Throwable {
+
+        JsonResponser jsonResponser = new JsonResponser();
+
         Object result = joinPoint.proceed();
         if(result!=null){
-            //String str = JsonToolKit.objToJson(result.toString());
+            //String str = JsonUtil.objToJson(result.toString());
             jsonResponser.setBusinessData(result.toString());
         }
         String jsonResult = jsonResponser.process();

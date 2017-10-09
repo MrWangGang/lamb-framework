@@ -7,18 +7,18 @@ import org.lamb.lambframework.core.enumeration.ExceptionEnum;
  * E-mail userbean@outlook.com
  * The final interpretation of this procedure is owned by the author
  */
-public abstract class GlobalBasicException extends RuntimeException{
+public abstract class GlobalException extends RuntimeException{
 
     private String code;
 
     private String message;
 
-    public GlobalBasicException(ExceptionEnum error){
+    public GlobalException(ExceptionEnum error){
             this.code = error.getCode();
             this.message =error.getMessage();
     }
 
-    public GlobalBasicException(String code,String message){
+    public GlobalException(String code, String message){
         this.code = code;
         this.message =message;
     }

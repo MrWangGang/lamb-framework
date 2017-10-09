@@ -2,7 +2,7 @@ package org.lamb.lambframework.core.verify;
 
 import org.lamb.lambframework.core.annotation.ParamVerify;
 import org.lamb.lambframework.core.enumeration.ExceptionEnum;
-import org.lamb.lambframework.core.exception.BusinessException;
+import org.lamb.lambframework.core.exception.EventException;
 import org.apache.commons.lang.StringUtils;
 
 import java.lang.reflect.Field;
@@ -69,7 +69,7 @@ public abstract class ParamSymbolVerify {
                     field.setAccessible(true);
                     obj = field.get(this);
                 } catch (IllegalAccessException e) {
-                    throw new BusinessException(ExceptionEnum.ILLEGAL_ACCESS);
+                    throw new EventException(ExceptionEnum.ILLEGAL_ACCESS);
                 }finally {
                     field.setAccessible(false);
                 }
@@ -84,12 +84,12 @@ public abstract class ParamSymbolVerify {
 
         if(StringUtils.isBlank(value)){
             //如果名称为空
-            throw new BusinessException(ExceptionEnum.PARAM_NAME_NOT_NULL);
+            throw new EventException(ExceptionEnum.PARAM_NAME_NOT_NULL);
         }
         if(required){//如果是必须填写的
             //判断值是否为空
             if(obj == null){
-                throw new BusinessException(ExceptionEnum.PARAM_NOT_NULL);
+                throw new EventException(ExceptionEnum.PARAM_NOT_NULL);
             }
         }
     }

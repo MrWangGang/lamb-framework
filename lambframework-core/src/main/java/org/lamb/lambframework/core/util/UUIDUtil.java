@@ -7,7 +7,7 @@ import java.util.UUID;
  * E-mail userbean@outlook.com
  * The final interpretation of this procedure is owned by the author
  */
-public class UUIDToolKit {
+public class UUIDUtil {
 
     public static String get(){
         String uuid = UUID.randomUUID().toString().replaceAll("-", "");

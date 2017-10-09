@@ -1,6 +1,6 @@
 package org.lamb.lambframework.core.aspect;
 
-import org.lamb.lambframework.core.exception.BusinessException;
+import org.lamb.lambframework.core.exception.EventException;
 import org.lamb.lambframework.core.analysis.AnalysisFoundation;
 import org.lamb.lambframework.core.annotation.Analysis;
 import org.lamb.lambframework.core.enumeration.ExceptionEnum;
@@ -33,7 +33,7 @@ public class AnalysisAspect {
     public String processAnalysis(ProceedingJoinPoint joinPoint) throws Throwable {
         Object result = joinPoint.proceed();
         if (result == null) {
-            throw new BusinessException(ExceptionEnum.ANALYSIS_ASPECT_OBJECT_NULL);
+            throw new EventException(ExceptionEnum.ANALYSIS_ASPECT_OBJECT_NULL);
         }
         Signature signature = joinPoint.getSignature();
         MethodSignature methodSignature = (MethodSignature) signature;
@@ -43,7 +43,7 @@ public class AnalysisAspect {
             Analysis analysis = targetMethod.getAnnotation(Analysis.class);
             Class<? extends AnalysisFoundation> foundation = analysis.clazz();
             if (foundation == null) {
-                throw new BusinessException(ExceptionEnum.ANALYSIS_ASPECT_ERROR);
+                throw new EventException(ExceptionEnum.ANALYSIS_ASPECT_ERROR);
             }
             AnalysisFoundation analysisObj = foundation.newInstance();
             result = analysisObj.analysis(result.toString());
