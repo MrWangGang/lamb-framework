@@ -33,7 +33,7 @@ public class AnalysisAspect {
     public String processAnalysis(ProceedingJoinPoint joinPoint) throws Throwable {
         Object result = joinPoint.proceed();
         if (result == null) {
-            throw new EventException(ExceptionEnum.ANALYSIS_ASPECT_OBJECT_NULL);
+            throw new EventException(ExceptionEnum.EC00000001);
         }
         Signature signature = joinPoint.getSignature();
         MethodSignature methodSignature = (MethodSignature) signature;
@@ -43,7 +43,7 @@ public class AnalysisAspect {
             Analysis analysis = targetMethod.getAnnotation(Analysis.class);
             Class<? extends AnalysisFoundation> foundation = analysis.clazz();
             if (foundation == null) {
-                throw new EventException(ExceptionEnum.ANALYSIS_ASPECT_ERROR);
+                throw new EventException(ExceptionEnum.EC00000000);
             }
             AnalysisFoundation analysisObj = foundation.newInstance();
             result = analysisObj.analysis(result.toString());

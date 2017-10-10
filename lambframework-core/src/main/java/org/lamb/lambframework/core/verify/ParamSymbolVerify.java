@@ -69,7 +69,7 @@ public abstract class ParamSymbolVerify {
                     field.setAccessible(true);
                     obj = field.get(this);
                 } catch (IllegalAccessException e) {
-                    throw new EventException(ExceptionEnum.ILLEGAL_ACCESS);
+                    throw new EventException(ExceptionEnum.EC00000002);
                 }finally {
                     field.setAccessible(false);
                 }
@@ -84,12 +84,12 @@ public abstract class ParamSymbolVerify {
 
         if(StringUtils.isBlank(value)){
             //如果名称为空
-            throw new EventException(ExceptionEnum.PARAM_NAME_NOT_NULL);
+            throw new EventException(ExceptionEnum.EL00000004);
         }
         if(required){//如果是必须填写的
             //判断值是否为空
             if(obj == null){
-                throw new EventException(ExceptionEnum.PARAM_NOT_NULL);
+                throw new EventException(ExceptionEnum.EL00000005);
             }
         }
     }

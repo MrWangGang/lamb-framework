@@ -18,7 +18,7 @@ public class URLEncoderUtil {
         try {
             return URLEncoder.encode(value,"UTF-8");
         } catch (UnsupportedEncodingException e) {
-            throw new EventException(ExceptionEnum.ALGORITHM_UNSUPPORTED_ENCODING_EXCEPTION);
+            throw new EventException(ExceptionEnum.EC00000005);
         }
     }
 

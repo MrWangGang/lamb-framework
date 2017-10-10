@@ -57,7 +57,7 @@ public class RSACoderAlgorithm {
 
             return Base64Algorithm.byteArrayToBase64(encryptedResult);
         } catch (UnsupportedEncodingException e) {
-            throw new EventException(ExceptionEnum.ALGORITHM_UNSUPPORTED_ENCODING_EXCEPTION);
+            throw new EventException(ExceptionEnum.EC00000005);
         }
     }
 
@@ -77,7 +77,7 @@ public class RSACoderAlgorithm {
 
             return Base64Algorithm.byteArrayToBase64(encryptedResult);
         } catch (UnsupportedEncodingException e) {
-            throw new EventException(ExceptionEnum.ALGORITHM_UNSUPPORTED_ENCODING_EXCEPTION);
+            throw new EventException(ExceptionEnum.EC00000005);
         }
     }
 
@@ -95,7 +95,7 @@ public class RSACoderAlgorithm {
             String signParams = RSACoderAlgorithm.sign(dataInBytes, privateKey);//用应用的私钥加签.
             return signParams;
         } catch (UnsupportedEncodingException e) {
-            throw new EventException(ExceptionEnum.ALGORITHM_UNSUPPORTED_ENCODING_EXCEPTION);
+            throw new EventException(ExceptionEnum.EC00000005);
         }
     }
 
@@ -114,7 +114,7 @@ public class RSACoderAlgorithm {
             String signParams = RSACoderAlgorithm.sign(dataInBytes, privateKey,signType);//用应用的私钥加签.
             return signParams;
         } catch (UnsupportedEncodingException e) {
-            throw new EventException(ExceptionEnum.ALGORITHM_UNSUPPORTED_ENCODING_EXCEPTION);
+            throw new EventException(ExceptionEnum.EC00000005);
         }
     }
 
@@ -132,7 +132,7 @@ public class RSACoderAlgorithm {
             byte[] encryptedBytes = decryptByPrivateKey(byte64, key, null);
             return new String(encryptedBytes, charset);
         } catch (UnsupportedEncodingException e) {
-            throw new EventException(ExceptionEnum.ALGORITHM_UNSUPPORTED_ENCODING_EXCEPTION);
+            throw new EventException(ExceptionEnum.EC00000005);
         }
 
     }
@@ -152,7 +152,7 @@ public class RSACoderAlgorithm {
             byte[] encryptedBytes = decryptByPrivateKey(byte64, key, encryptionType);
             return new String(encryptedBytes, charset);
         } catch (UnsupportedEncodingException e) {
-            throw new EventException(ExceptionEnum.ALGORITHM_UNSUPPORTED_ENCODING_EXCEPTION);
+            throw new EventException(ExceptionEnum.EC00000005);
         }
     }
 
@@ -203,19 +203,19 @@ public class RSACoderAlgorithm {
 
             return decryptedData;
         } catch (IOException e) {
-            throw new EventException(ExceptionEnum.ALGORITHM_PRI_IO_EXCEPTION);
+            throw new EventException(ExceptionEnum.EC00000008);
         } catch (NoSuchAlgorithmException e) {
-            throw new EventException(ExceptionEnum.ALGORITHM_NOSUCH_ALGORITHM_EXCEPTION);
+            throw new EventException(ExceptionEnum.EC00000006);
         } catch (InvalidKeyException e) {
-            throw new EventException(ExceptionEnum.ALGORITHM_PRI_INVALID_KEY_EXCEPTION);
+            throw new EventException(ExceptionEnum.EC00000009);
         } catch (NoSuchPaddingException e) {
-            throw new EventException(ExceptionEnum.ALGORITHM_NO_SUCH_PADDING_EXCEPTION);
+            throw new EventException(ExceptionEnum.EC00000007);
         } catch (BadPaddingException e) {
-            throw new EventException(ExceptionEnum.ALGORITHM_PRI_BAD_PADDING_EXCEPTION);
+            throw new EventException(ExceptionEnum.EC00000010);
         }  catch (IllegalBlockSizeException e) {
-            throw new EventException(ExceptionEnum.ALGORITHM_PRI_ILLEGAL_BLOCK_SIZE_EXCEPTION);
+            throw new EventException(ExceptionEnum.EC00000011);
         } catch (InvalidKeySpecException e) {
-            throw new EventException(ExceptionEnum.ALGORITHM_PRI_INVALID_KEY_SPEC_EXCEPTION);
+            throw new EventException(ExceptionEnum.EC00000012);
         }
 
     }
@@ -268,19 +268,19 @@ public class RSACoderAlgorithm {
             }
             return encryptedData;
         } catch (IOException e) {
-            throw new EventException(ExceptionEnum.ALGORITHM_PUB_IO_EXCEPTION);
+            throw new EventException(ExceptionEnum.EC00000013);
         } catch (NoSuchAlgorithmException e) {
-            throw new EventException(ExceptionEnum.ALGORITHM_NOSUCH_ALGORITHM_EXCEPTION);
+            throw new EventException(ExceptionEnum.EC00000006);
         } catch (InvalidKeyException e) {
-            throw new EventException(ExceptionEnum.ALGORITHM_PUB_INVALID_KEY_EXCEPTION);
+            throw new EventException(ExceptionEnum.EC00000014);
         } catch (NoSuchPaddingException e) {
-            throw new EventException(ExceptionEnum.ALGORITHM_NO_SUCH_PADDING_EXCEPTION);
+            throw new EventException(ExceptionEnum.EC00000007);
         } catch (BadPaddingException e) {
-            throw new EventException(ExceptionEnum.ALGORITHM_PUB_BAD_PADDING_EXCEPTION);
+            throw new EventException(ExceptionEnum.EC00000015);
         } catch (InvalidKeySpecException e) {
-            throw new EventException(ExceptionEnum.ALGORITHM_PUB_INVALID_KEY_SPEC_EXCEPTION);
+            throw new EventException(ExceptionEnum.EC00000016);
         } catch (IllegalBlockSizeException e) {
-            throw new EventException(ExceptionEnum.ALGORITHM_PUB_ILLEGAL_BLOCK_SIZE_EXCEPTION);
+            throw new EventException(ExceptionEnum.EC00000017);
         }
 
     }
@@ -320,13 +320,13 @@ public class RSACoderAlgorithm {
 
             return encryptBASE64(signature.sign());
         } catch (NoSuchAlgorithmException e) {
-            throw new EventException(ExceptionEnum.ALGORITHM_NOSUCH_ALGORITHM_EXCEPTION);
+            throw new EventException(ExceptionEnum.EC00000006);
         } catch (SignatureException e) {
-            throw new EventException(ExceptionEnum.ALGORITHM_SIGNATURE_EXCEPTION);
+            throw new EventException(ExceptionEnum.EC00000018);
         } catch (InvalidKeyException e) {
-            throw new EventException(ExceptionEnum.ALGORITHM_PRI_INVALID_KEY_EXCEPTION);
+            throw new EventException(ExceptionEnum.EC00000009);
         } catch (InvalidKeySpecException e) {
-            throw new EventException(ExceptionEnum.ALGORITHM_PRI_INVALID_KEY_SPEC_EXCEPTION);
+            throw new EventException(ExceptionEnum.EC00000012);
         }
 
     }
@@ -369,13 +369,13 @@ public class RSACoderAlgorithm {
             //验证签名是否正常
             return signature.verify(decryptBASE64(sign));
         } catch (NoSuchAlgorithmException e) {
-            throw new EventException(ExceptionEnum.ALGORITHM_NOSUCH_ALGORITHM_EXCEPTION);
+            throw new EventException(ExceptionEnum.EC00000006);
         } catch (SignatureException e) {
-            throw new EventException(ExceptionEnum.ALGORITHM_SIGNATURE_EXCEPTION);
+            throw new EventException(ExceptionEnum.EC00000018);
         } catch (InvalidKeyException e) {
-            throw new EventException(ExceptionEnum.ALGORITHM_PUB_INVALID_KEY_EXCEPTION);
+            throw new EventException(ExceptionEnum.EC00000014);
         } catch (InvalidKeySpecException e) {
-            throw new EventException(ExceptionEnum.ALGORITHM_PUB_INVALID_KEY_SPEC_EXCEPTION);
+            throw new EventException(ExceptionEnum.EC00000016);
         }
     }
 
@@ -475,11 +475,11 @@ public class RSACoderAlgorithm {
             if (sign != null && sign.length() > 0) {//在sign对象不为空的情况下才进行验签
                 boolean success = verify(decryptedBizResponse.getBytes(charset), publicKey, sign,signType);
                 if (success == false) {
-                    throw new EventException(ExceptionEnum.ALGORITHM_VERIFY_SIGNATURE);
+                    throw new EventException(ExceptionEnum.EC00000019);
                 }
             }
         } catch (UnsupportedEncodingException e) {
-            throw new EventException(ExceptionEnum.ALGORITHM_UNSUPPORTED_ENCODING_EXCEPTION);
+            throw new EventException(ExceptionEnum.EC00000005);
         }
 
     }
@@ -502,7 +502,7 @@ public class RSACoderAlgorithm {
             maxLength = keyLength / 8 - 11;
             return maxLength;
         } catch (InvalidKeySpecException e) {
-            throw new EventException(ExceptionEnum.ALGORITHM_PUB_INVALID_KEY_SPEC_EXCEPTION);
+            throw new EventException(ExceptionEnum.EC00000016);
         }
 
     }
@@ -539,7 +539,7 @@ public class RSACoderAlgorithm {
             maxLength = keyLength / 8;
             return maxLength;
         } catch (InvalidKeySpecException e) {
-            throw new EventException(ExceptionEnum.ALGORITHM_PUB_INVALID_KEY_SPEC_EXCEPTION);
+            throw new EventException(ExceptionEnum.EC00000016);
         }
     }
 
