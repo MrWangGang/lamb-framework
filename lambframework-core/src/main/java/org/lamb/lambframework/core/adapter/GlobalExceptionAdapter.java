@@ -35,18 +35,17 @@ public class GlobalExceptionAdapter {
             return returnInitErrorMsg();
         }
 
-        Map map = ErrorMessageListener.exception;
-        if(map == null){
+        if(StringUtils.isBlank(e.getCode())){
             return returnInitErrorMsg();
         }
 
-        if(!map.containsKey(e.getCode())){
+        if(!ErrorMessageListener.exception.containsKey(e.getCode())){
             return returnInitErrorMsg();
         }
 
         JsonResponser jsonResponser = new JsonResponser();
 
-        return jsonResponser.setBusinessResponseBody(e.getCode(),map.get(e.getCode()).toString()).process();
+        return jsonResponser.setBusinessResponseBody(e.getCode(),cast(e.getCode())).process();
 
     }
 
@@ -64,29 +63,54 @@ public class GlobalExceptionAdapter {
             return returnInitErrorMsg();
         }
 
+        if(e.getBindingResult() == null){
+            return returnInitErrorMsg();
+        }
+
+        if(e.getBindingResult().getFieldError() == null){
+            return returnInitErrorMsg();
+        }
+
         if(StringUtils.isBlank(e.getBindingResult().getFieldError().getDefaultMessage())){
             return returnInitErrorMsg();
         }
-        Map map = ErrorMessageListener.exception;
-        if(map == null){
-            return returnInitErrorMsg();
-        }
 
-
-        if(!map.containsKey(e.getBindingResult().getFieldError().getDefaultMessage())){
+        if(!ErrorMessageListener.exception.containsKey(e.getBindingResult().getFieldError().getDefaultMessage())){
             return returnInitErrorMsg();
         }
 
         JsonResponser jsonResponser = new JsonResponser();
         return jsonResponser.
-                setServiceResponseBody(e.getBindingResult().getFieldError().getDefaultMessage(),(map.get(e.getBindingResult().getFieldError().getDefaultMessage()).toString())).
+                setServiceResponseBody(e.getBindingResult().getFieldError().getDefaultMessage(),cast(e.getBindingResult().getFieldError().getDefaultMessage())).
                 process();
 
     }
 
     //统一初始化信息
     public String returnInitErrorMsg(){
+
         JsonResponser jsonResponser = new JsonResponser();
-        return jsonResponser.setServiceResponseBody(ExceptionEnum.E000000000.getCode(),ExceptionEnum.E000000000.getMessage()).process();
+        String code = "E000000000";
+        return jsonResponser.setServiceResponseBody(code,cast(code)).process();
+
     }
+
+    //转换空的msg 设置为初始值
+    public String cast(String code){
+        String msg = null;
+
+        if (ErrorMessageListener.exception.get(code) == null){
+            msg = "未知错误";
+            return msg;
+        }
+
+        if(StringUtils.isBlank(ErrorMessageListener.exception.get(code).toString())){
+            msg = "未知错误";
+            return msg;
+        }
+
+        return ErrorMessageListener.exception.get(code).toString();
+    }
+
+
 }
