@@ -31,15 +31,19 @@ public class GlobalExceptionAdapter {
     @ResponseBody
     public String handleTransferException(EventException e) {
 
+        if(ErrorMessageListener.exception == null){
+            return returnInitErrorMsg();
+        }
+
         if(e==null){
             return returnInitErrorMsg();
         }
 
-        if(StringUtils.isBlank(e.getCode())){
+        if(!ErrorMessageListener.exception.containsKey(e.getCode())){
             return returnInitErrorMsg();
         }
 
-        if(!ErrorMessageListener.exception.containsKey(e.getCode())){
+        if(StringUtils.isBlank(e.getCode())){
             return returnInitErrorMsg();
         }
 
@@ -57,7 +61,9 @@ public class GlobalExceptionAdapter {
     @ExceptionHandler(BindException.class)
     @ResponseBody
     public String handleBindException(BindException e) {
-
+        if(ErrorMessageListener.exception == null){
+            return returnInitErrorMsg();
+        }
 
         if(e==null){
             return returnInitErrorMsg();
@@ -90,14 +96,26 @@ public class GlobalExceptionAdapter {
     public String returnInitErrorMsg(){
 
         JsonResponser jsonResponser = new JsonResponser();
-        String code = "E000000000";
+
+        String code = ExceptionEnum.E000000000.getCode();;
+
+        if(StringUtils.isBlank(code)){
+             code = "E000000000";
+        }
+
         return jsonResponser.setServiceResponseBody(code,cast(code)).process();
 
     }
 
     //转换空的msg 设置为初始值
     public String cast(String code){
+
         String msg = null;
+
+        if(ErrorMessageListener.exception == null){
+            msg = "未知错误";
+            return msg;
+        }
 
         if (ErrorMessageListener.exception.get(code) == null){
             msg = "未知错误";

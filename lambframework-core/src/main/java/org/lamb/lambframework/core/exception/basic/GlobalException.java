@@ -11,16 +11,13 @@ public abstract class GlobalException extends RuntimeException{
 
     private String code;
 
-    private String message;
 
     public GlobalException(ExceptionEnum error){
             this.code = error.getCode();
-            this.message =error.getMessage();
     }
 
     public GlobalException(String code, String message){
         this.code = code;
-        this.message =message;
     }
 
     public String getCode() {
@@ -29,14 +26,5 @@ public abstract class GlobalException extends RuntimeException{
 
     public void setCode(String code) {
         this.code = code;
-    }
-
-    @Override
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 }
