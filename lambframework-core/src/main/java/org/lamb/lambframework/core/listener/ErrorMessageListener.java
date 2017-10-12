@@ -12,6 +12,7 @@ import java.util.Map;
 @EnableConfigurationProperties
 @ConfigurationProperties("throw")
 @PropertySource("classpath:lambframework-core_exception_message.properties")
+@PropertySource("classpath*:decisionsupportsystem-global-error-dev.properties")
 public class ErrorMessageListener {
 
     public static Map<String,String> exception = new HashMap<String, String>();
