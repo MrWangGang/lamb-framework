@@ -5,6 +5,8 @@ import org.apache.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.lamb.lambframework.core.aspect.config.JsonSymbolicFinalConfig;
+import org.lamb.lambframework.core.util.JsonUtil;
 import org.springframework.stereotype.Component;
 
 
@@ -23,12 +25,15 @@ public class JsonSymbolicBodyAspect {
     /*
         * 定义一个切入点
         */
-    @Around(value = "execution(public String *(..)) && @annotation(org.lamb.lambframework.core.annotation.JsonSymbolicBody)")
+    @Around(value = "execution(public * *(..))&& @annotation(org.lamb.lambframework.core.annotation.JsonSymbolicBody)")
     public String processJsonReturnValue(ProceedingJoinPoint joinPoint) throws Throwable {
 
         JsonResponser jsonResponser = new JsonResponser();
 
         Object result = joinPoint.proceed();
+        if(result == null){
+            jsonResponser.setBusinessResponseBody(JsonSymbolicFinalConfig.DEFAULT_SUCCESS_BUSINESS_CODE,JsonSymbolicFinalConfig.DEFAULT_SUCCESS_BUSINESS_MESSAGE);
+        }
         if(result!=null){
             //String str = JsonUtil.objToJson(result.toString());
             jsonResponser.setBusinessData(result.toString());
