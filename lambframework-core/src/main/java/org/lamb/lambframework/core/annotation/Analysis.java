@@ -1,7 +1,5 @@
 package org.lamb.lambframework.core.annotation;
 
-import org.lamb.lambframework.core.analysis.AnalysisFoundation;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

@@ -1,4 +1,4 @@
-package org.lamb.lambframework.core.analysis;
+package org.lamb.lambframework.core.annotation;
 
 /**
  * Created by WangGang on 2017/7/10 0010.
