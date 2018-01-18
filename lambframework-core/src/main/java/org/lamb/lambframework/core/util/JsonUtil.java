@@ -3,9 +3,11 @@ package org.lamb.lambframework.core.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.Maps;
 import org.lamb.lambframework.core.exception.EventException;
 import org.lamb.lambframework.core.enumeration.ExceptionEnum;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.cglib.beans.BeanMap;
 
 import java.io.IOException;
 import java.util.Map;
@@ -84,6 +86,21 @@ public class JsonUtil {
 
         return t;
 
+    }
+    /**
+     * 将对象装换为map
+     * @param bean
+     * @return
+     */
+    public static <T> Map<String, Object> beanToMap(T bean) {
+        Map<String, Object> map = Maps.newHashMap();
+        if (bean != null) {
+            BeanMap beanMap = BeanMap.create(bean);
+            for (Object key : beanMap.keySet()) {
+                map.put(key+"", beanMap.get(key));
+            }
+        }
+        return map;
     }
 
     public static String objToJson(Object obj){
