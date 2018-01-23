@@ -7,7 +7,7 @@ package org.lamb.lambframework.core.enumeration;
  */
 public enum ExceptionEnum {
 
-    EC00000000("EC00000000","无法加载切点对象"),
+    EC00000000("EC00000000","链接点无返回值"),
     EC00000001("EC00000001","链接点参数为空"),
     EC00000002("EC00000002","类或对象访问权限限制"),
     EC00000003("EC00000003","I/O异常"),
