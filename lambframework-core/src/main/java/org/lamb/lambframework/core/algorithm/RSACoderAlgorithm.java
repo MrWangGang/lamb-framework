@@ -1,12 +1,7 @@
-/**
- * Alipay.com Inc.
- * Copyright (c) 2004-2014 All Rights Reserved.
- */
 package org.lamb.lambframework.core.algorithm;
 
 
 import org.lamb.lambframework.core.algorithm.enumeration.AlgorithmEnum;
-import org.lamb.lambframework.core.util.JsonUtil;
 import org.lamb.lambframework.core.enumeration.ExceptionEnum;
 import org.lamb.lambframework.core.exception.EventException;
 
@@ -19,8 +14,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.*;
 import java.security.spec.*;
-import java.util.Iterator;
-import java.util.Map;
 
 /**
  * Created by WangGang on 2017/6/22 0022.
@@ -32,34 +25,10 @@ public class RSACoderAlgorithm {
     /**
      * 加密算法
      */
-    public static final String KEY_ALGORTHM           = "RSA";
+    public static final String KEY_ALGORTHM = "RSA";
 
     /**具体加密算法，包括padding的方式*/
     public static final String SPECIFIC_KEY_ALGORITHM = "RSA/ECB/PKCS1Padding";
-
-    /**
-     * 加签算法
-     */
-    public static final String SIGNATURE_ALGORITHM    = "SHA1WithRSA";
-
-    /**
-     * 用RSA算法进行加密
-     * 
-     * @param paramsString 要加密的字符串
-     * @param charset 字符集
-     * @param publicKey 加密使用的公钥
-     * @return  加密结果
-     */
-    public static String encrypt(String paramsString, String charset, String publicKey){
-        try {
-            byte[] encryptedResult = RSACoderAlgorithm.encryptByPublicKey(paramsString.getBytes(charset),
-                    publicKey, null);
-
-            return Base64Algorithm.byteArrayToBase64(encryptedResult);
-        } catch (UnsupportedEncodingException e) {
-            throw new EventException(ExceptionEnum.EC00000005);
-        }
-    }
 
     /**
      * 用RSA算法进行加密
@@ -77,25 +46,7 @@ public class RSACoderAlgorithm {
 
             return Base64Algorithm.byteArrayToBase64(encryptedResult);
         } catch (UnsupportedEncodingException e) {
-            throw new EventException(ExceptionEnum.EC00000005);
-        }
-    }
-
-    /**
-     * 把参数通过私钥进行加签.
-     * 
-     * @param data 要加密的字符串
-     * @param charset 字符串的编码
-     * @param privateKey 商户的私钥
-     * @return 加签后的数据
-     */
-    public static String sign(String data, String charset, String privateKey) {
-        try {
-            byte[] dataInBytes = data.getBytes(charset);
-            String signParams = RSACoderAlgorithm.sign(dataInBytes, privateKey);//用应用的私钥加签.
-            return signParams;
-        } catch (UnsupportedEncodingException e) {
-            throw new EventException(ExceptionEnum.EC00000005);
+            throw new EventException(ExceptionEnum.ES00000005);
         }
     }
 
@@ -114,7 +65,7 @@ public class RSACoderAlgorithm {
             String signParams = RSACoderAlgorithm.sign(dataInBytes, privateKey,signType);//用应用的私钥加签.
             return signParams;
         } catch (UnsupportedEncodingException e) {
-            throw new EventException(ExceptionEnum.EC00000005);
+            throw new EventException(ExceptionEnum.ES00000005);
         }
     }
 
@@ -132,7 +83,7 @@ public class RSACoderAlgorithm {
             byte[] encryptedBytes = decryptByPrivateKey(byte64, key, null);
             return new String(encryptedBytes, charset);
         } catch (UnsupportedEncodingException e) {
-            throw new EventException(ExceptionEnum.EC00000005);
+            throw new EventException(ExceptionEnum.ES00000005);
         }
 
     }
@@ -152,7 +103,7 @@ public class RSACoderAlgorithm {
             byte[] encryptedBytes = decryptByPrivateKey(byte64, key, encryptionType);
             return new String(encryptedBytes, charset);
         } catch (UnsupportedEncodingException e) {
-            throw new EventException(ExceptionEnum.EC00000005);
+            throw new EventException(ExceptionEnum.ES00000005);
         }
     }
 
@@ -203,19 +154,19 @@ public class RSACoderAlgorithm {
 
             return decryptedData;
         } catch (IOException e) {
-            throw new EventException(ExceptionEnum.EC00000008);
+            throw new EventException(ExceptionEnum.ES00000008);
         } catch (NoSuchAlgorithmException e) {
-            throw new EventException(ExceptionEnum.EC00000006);
+            throw new EventException(ExceptionEnum.ES00000006);
         } catch (InvalidKeyException e) {
-            throw new EventException(ExceptionEnum.EC00000009);
+            throw new EventException(ExceptionEnum.ES00000009);
         } catch (NoSuchPaddingException e) {
-            throw new EventException(ExceptionEnum.EC00000007);
+            throw new EventException(ExceptionEnum.ES00000007);
         } catch (BadPaddingException e) {
-            throw new EventException(ExceptionEnum.EC00000010);
+            throw new EventException(ExceptionEnum.ES00000010);
         }  catch (IllegalBlockSizeException e) {
-            throw new EventException(ExceptionEnum.EC00000011);
+            throw new EventException(ExceptionEnum.ES00000011);
         } catch (InvalidKeySpecException e) {
-            throw new EventException(ExceptionEnum.EC00000012);
+            throw new EventException(ExceptionEnum.ES00000012);
         }
 
     }
@@ -268,31 +219,21 @@ public class RSACoderAlgorithm {
             }
             return encryptedData;
         } catch (IOException e) {
-            throw new EventException(ExceptionEnum.EC00000013);
+            throw new EventException(ExceptionEnum.ES00000013);
         } catch (NoSuchAlgorithmException e) {
-            throw new EventException(ExceptionEnum.EC00000006);
+            throw new EventException(ExceptionEnum.ES00000006);
         } catch (InvalidKeyException e) {
-            throw new EventException(ExceptionEnum.EC00000014);
+            throw new EventException(ExceptionEnum.ES00000014);
         } catch (NoSuchPaddingException e) {
-            throw new EventException(ExceptionEnum.EC00000007);
+            throw new EventException(ExceptionEnum.ES00000007);
         } catch (BadPaddingException e) {
-            throw new EventException(ExceptionEnum.EC00000015);
+            throw new EventException(ExceptionEnum.ES00000015);
         } catch (InvalidKeySpecException e) {
-            throw new EventException(ExceptionEnum.EC00000016);
+            throw new EventException(ExceptionEnum.ES00000016);
         } catch (IllegalBlockSizeException e) {
-            throw new EventException(ExceptionEnum.EC00000017);
+            throw new EventException(ExceptionEnum.ES00000017);
         }
 
-    }
-
-    /** 用私钥对信息生成数字签名
-     * @param data   加密数据
-     * @param privateKey 私钥
-     * @return 签名后的base64值
-     */
-    public static String sign(byte[] data, String privateKey) {
-        //解密私钥
-        return sign(data, privateKey,AlgorithmEnum.SHA1WITHRSA);
     }
 
     /** 用私钥对信息生成数字签名
@@ -320,28 +261,16 @@ public class RSACoderAlgorithm {
 
             return encryptBASE64(signature.sign());
         } catch (NoSuchAlgorithmException e) {
-            throw new EventException(ExceptionEnum.EC00000006);
+            throw new EventException(ExceptionEnum.ES00000006);
         } catch (SignatureException e) {
-            throw new EventException(ExceptionEnum.EC00000018);
+            throw new EventException(ExceptionEnum.ES00000018);
         } catch (InvalidKeyException e) {
-            throw new EventException(ExceptionEnum.EC00000009);
+            throw new EventException(ExceptionEnum.ES00000009);
         } catch (InvalidKeySpecException e) {
-            throw new EventException(ExceptionEnum.EC00000012);
+            throw new EventException(ExceptionEnum.ES00000012);
         }
 
     }
-
-    /**
-     * 校验数字签名
-     * @param data   加密数据
-     * @param publicKey  公钥
-     * @param sign   数字签名
-     * @return 验签结果
-     */
-    public static boolean verify(byte[] data, String publicKey, String sign) {
-        return verify(data, publicKey, sign,AlgorithmEnum.SHA1WITHRSA);
-    }
-
     /**
      * 校验数字签名
      * @param signType 签名类型
@@ -369,122 +298,15 @@ public class RSACoderAlgorithm {
             //验证签名是否正常
             return signature.verify(decryptBASE64(sign));
         } catch (NoSuchAlgorithmException e) {
-            throw new EventException(ExceptionEnum.EC00000006);
+            throw new EventException(ExceptionEnum.ES00000006);
         } catch (SignatureException e) {
-            throw new EventException(ExceptionEnum.EC00000018);
+            throw new EventException(ExceptionEnum.ES00000018);
         } catch (InvalidKeyException e) {
-            throw new EventException(ExceptionEnum.EC00000014);
+            throw new EventException(ExceptionEnum.ES00000014);
         } catch (InvalidKeySpecException e) {
-            throw new EventException(ExceptionEnum.EC00000016);
+            throw new EventException(ExceptionEnum.ES00000016);
         }
     }
-
-
-
-    /**
-     * 从开放平台的response里面解析出业务的返回值并解密（如果加密的话，根据encrypted属性判断是否加密）
-     * 返回结果的格式如下:
-     * * 在执行结果失败时，encrypted=false,所有的返回结果就不加密加签了,格式如下:
-     *  {
-     *   "encrypted":false,
-     *   "biz_response":"{"success":false,"error_code":"ZMOP.unknow_error","error_message":"未知错误"}"
-     *   }
-     *   
-     *  在执行成功时，encrypted=true，所有的返回结果进行加密,格式如下:
-     *  {
-     *   "encrypted":true,
-     *   "biz_response_sign":"业务明文数据签名",
-     *   "biz_response":"业务密文数据"
-     *  }
-     * 
-     * @param fullResponse 开放平台的返回结果
-     * @param privateKey 商户私钥
-     * @param charset 编码
-     * @param encryptionType 加密算法类型
-     * @return 解密后的结果，比如上面第二个例子中，返回"not encrypted data"
-     */
-    public static String decryptResponse(String fullResponse, String privateKey, String charset,AlgorithmEnum encryptionType) {
-
-            String decryptedRsp = null;
-            Map rootJson = parseResponseMap(fullResponse);
-            for (Iterator it = rootJson.keySet().iterator(); it.hasNext();) {
-                String key = (String) it.next();
-                if (key.endsWith("_response")) {
-                    String value = (String) rootJson.get(key);
-                    decryptedRsp = value;
-                }
-            }
-
-            if (((Boolean) rootJson.get("encrypted")).booleanValue()) {
-                decryptedRsp = RSACoderAlgorithm.decrypt(decryptedRsp, privateKey, charset, encryptionType);
-            }
-            return decryptedRsp;
-
-    }
-
-    /**
-     * 对返回结果进行验签
-     * 返回结果的格式如下:
-     * * 在执行结果失败时，encrypted=false,所有的返回结果就不加密加签了,格式如下:
-     *  {
-     *   "encrypted":false,
-     *   "biz_response":"{"success":false,"error_code":"ZMOP.unknow_error","error_message":"未知错误"}"
-     *   }
-     *   
-     *  在执行成功时，encrypted=true，所有的返回结果进行加密,格式如下:
-     *  {
-     *   "encrypted":true,
-     *   "biz_response_sign":"业务明文数据签名",
-     *   "biz_response":"业务密文数据"
-     *  }
-     * @param fullResponse 开放平台返回值
-     * @param decryptedBizResponse 解密后的业务数据
-     * @param publicKey 芝麻公钥
-     * @param charset 字符集
-     */
-    public static void verifySign(String fullResponse, String decryptedBizResponse,String publicKey, String charset) {
-        verifySign(fullResponse, decryptedBizResponse, publicKey, charset,AlgorithmEnum.SHA1WITHRSA);
-    }
-
-    /**
-     * 对返回结果进行验签
-     * 返回结果的格式如下:
-     * * 在执行结果失败时，encrypted=false,所有的返回结果就不加密加签了,格式如下:
-     *  {
-     *   "encrypted":false,
-     *   "biz_response":"{"success":false,"error_code":"ZMOP.unknow_error","error_message":"未知错误"}"
-     *   }
-     *   
-     *  在执行成功时，encrypted=true，所有的返回结果进行加密,格式如下:
-     *  {
-     *   "encrypted":true,
-     *   "biz_response_sign":"业务明文数据签名",
-     *   "biz_response":"业务密文数据"
-     *  }
-     * @param signType 签名类型
-     * @param fullResponse 开放平台返回值
-     * @param decryptedBizResponse 解密后的业务数据
-     * @param publicKey 芝麻公钥
-     * @param charset 字符集
-     */
-    public static void verifySign(String fullResponse,String decryptedBizResponse, String publicKey, String charset,AlgorithmEnum signType) {
-        try {
-            Map rootJson = parseResponseMap(fullResponse);
-            String sign = (String) rootJson.get("biz_response_sign");
-
-            if (sign != null && sign.length() > 0) {//在sign对象不为空的情况下才进行验签
-                boolean success = verify(decryptedBizResponse.getBytes(charset), publicKey, sign,signType);
-                if (success == false) {
-                    throw new EventException(ExceptionEnum.EC00000019);
-                }
-            }
-        } catch (UnsupportedEncodingException e) {
-            throw new EventException(ExceptionEnum.EC00000005);
-        }
-
-    }
-
-
 
     /**
      * 获取每次加密的最大长度
@@ -502,7 +324,7 @@ public class RSACoderAlgorithm {
             maxLength = keyLength / 8 - 11;
             return maxLength;
         } catch (InvalidKeySpecException e) {
-            throw new EventException(ExceptionEnum.EC00000016);
+            throw new EventException(ExceptionEnum.ES00000016);
         }
 
     }
@@ -539,7 +361,7 @@ public class RSACoderAlgorithm {
             maxLength = keyLength / 8;
             return maxLength;
         } catch (InvalidKeySpecException e) {
-            throw new EventException(ExceptionEnum.EC00000016);
+            throw new EventException(ExceptionEnum.ES00000016);
         }
     }
 
@@ -577,7 +399,4 @@ public class RSACoderAlgorithm {
         return Base64Algorithm.byteArrayToBase64(key);
     }
 
-    public static Map parseResponseMap(String str){
-        return JsonUtil.json2Map(str);
-    }
 }

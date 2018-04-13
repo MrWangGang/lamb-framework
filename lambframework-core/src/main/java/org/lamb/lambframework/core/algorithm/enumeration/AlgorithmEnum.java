@@ -25,48 +25,23 @@ public enum AlgorithmEnum {
     /**描述*/
     private String desc;
 
-    /**
-     * 构造函数
-     * @param code
-     * @param desc
-     */
     private AlgorithmEnum(String code, String desc) {
         this.code = code;
         this.desc = desc;
     }
 
-    /**
-     * Getter method for property <tt>code</tt>.
-     * 
-     * @return property value of code
-     */
     public String getCode() {
         return code;
     }
 
-    /**
-     * Setter method for property <tt>code</tt>.
-     * 
-     * @param code value to be assigned to property code
-     */
     public void setCode(String code) {
         this.code = code;
     }
 
-    /**
-     * Getter method for property <tt>desc</tt>.
-     * 
-     * @return property value of desc
-     */
     public String getDesc() {
         return desc;
     }
 
-    /**
-     * Setter method for property <tt>desc</tt>.
-     * 
-     * @param desc value to be assigned to property desc
-     */
     public void setDesc(String desc) {
         this.desc = desc;
     }

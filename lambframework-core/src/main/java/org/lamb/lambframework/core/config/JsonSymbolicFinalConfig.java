@@ -1,5 +1,7 @@
 package org.lamb.lambframework.core.config;
 
+import org.lamb.lambframework.core.enumeration.ExceptionEnum;
+
 /**
  * Created by WangGang on 2017/7/5 0005.
  * E-mail userbean@outlook.com
@@ -8,7 +10,7 @@ package org.lamb.lambframework.core.config;
 public class JsonSymbolicFinalConfig {
 
 
-    public  static final String   DEFAULT_SUCCESS_SERVICE_CODE = "0";
+    public  static final String   DEFAULT_SUCCESS_SERVICE_CODE = ExceptionEnum.E000000000.getCode();
 
     public  static final String   DEFAULT_SUCCESS_SERVICE_MESSAGE = "接口调用成功";
 

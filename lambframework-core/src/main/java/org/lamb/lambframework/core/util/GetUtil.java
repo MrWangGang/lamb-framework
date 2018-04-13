@@ -14,24 +14,24 @@ import java.util.Map;
 public class GetUtil {
     public static <T>T get(Map map, String value){
         if(StringUtils.isBlank(value)){
-            throw new EventException(ExceptionEnum.EL00000002);
+            throw new EventException(ExceptionEnum.ES00000002);
         }
 
         if(map == null){
-            throw new EventException(ExceptionEnum.EL00000001);
+            throw new EventException(ExceptionEnum.ES00000001);
         }
 
         if(map.isEmpty()){
-            throw new EventException(ExceptionEnum.EL00000001);
+            throw new EventException(ExceptionEnum.ES00000001);
         }
 
         Object obj = map.get(value);
         if(obj == null){
-            throw new EventException(ExceptionEnum.EL00000003);
+            throw new EventException(ExceptionEnum.ES00000003);
         }
         T t = (T)obj ;
         if(t == null){
-            throw new EventException(ExceptionEnum.EL00000003);
+            throw new EventException(ExceptionEnum.ES00000003);
         }
 
         return t;
