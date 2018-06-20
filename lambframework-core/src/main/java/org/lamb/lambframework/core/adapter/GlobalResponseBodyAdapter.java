@@ -1,7 +1,9 @@
 package org.lamb.lambframework.core.adapter;
 
 import org.lamb.lambframework.core.annotation.LambFormatJson;
-import org.lamb.lambframework.core.templete.ResponseTemplete;
+import org.lamb.lambframework.core.enumeration.ExceptionEnum;
+import org.lamb.lambframework.core.exception.EventException;
+import org.lamb.lambframework.core.templete.LambResponseTemplete;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.ServerHttpRequest;
@@ -24,17 +26,13 @@ public class GlobalResponseBodyAdapter implements ResponseBodyAdvice {
     }
 
     @Override
-    public ResponseTemplete beforeBodyWrite(Object returnValue, MethodParameter methodParameter, MediaType mediaType, Class aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
+    public LambResponseTemplete beforeBodyWrite(Object returnValue, MethodParameter methodParameter, MediaType mediaType, Class aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
         
         if(returnValue != null){
-            //if(!(returnValue instanceof ResponseTemplete)){
-            //    throw new EventException(ExceptionEnum.ES00000023);
-            //}
-            return new ResponseTemplete(returnValue);
+            if(!(returnValue instanceof LambResponseTemplete)){
+                throw new EventException(ExceptionEnum.ES00000023);
+            }
         }
-        return new ResponseTemplete();
+        return new LambResponseTemplete();
     }
-
-
-
 }

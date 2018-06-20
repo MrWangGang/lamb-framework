@@ -29,7 +29,7 @@ public enum ExceptionEnum {
     ES00000020("ES00000020","解析失败"),
     ES00000021("ES00000021","调用失败"),
     ES00000022("ES00000022","copy bean throw execption"),
-    ES00000023("ES00000023","接口返回类型必须为ResponseTemplete"),
+    ES00000023("ES00000023","接口返回类型必须为LambResponseTemplete"),
     EI00000020("EI00000020","必入参数未填写");
 
 

@@ -3,7 +3,7 @@ package org.lamb.lambframework.core.adapter;
 import org.apache.log4j.Logger;
 import org.lamb.lambframework.core.enumeration.ExceptionEnum;
 import org.lamb.lambframework.core.exception.basic.GlobalException;
-import org.lamb.lambframework.core.templete.ResponseTemplete;
+import org.lamb.lambframework.core.templete.LambResponseTemplete;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -26,7 +26,7 @@ public class GlobalExceptionAdapter {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler({Exception.class})
     @ResponseBody
-    public ResponseTemplete handleTransferException(Exception e) {
+    public LambResponseTemplete handleTransferException(Exception e) {
         logger.debug("e message "+e.getMessage());
         logger.debug("e localizedMessage "+e.getLocalizedMessage());
         logger.debug("e bean "+e);
@@ -50,10 +50,10 @@ public class GlobalExceptionAdapter {
         }
     }
 
-    private ResponseTemplete result(String code,String message){
-        ResponseTemplete responseTemplete = new ResponseTemplete();
-        responseTemplete.setService_code(code);
-        responseTemplete.setService_message(message);
-        return responseTemplete;
+    private LambResponseTemplete result(String code, String message){
+        LambResponseTemplete lambResponseTemplete = new LambResponseTemplete();
+        lambResponseTemplete.setService_code(code);
+        lambResponseTemplete.setService_message(message);
+        return lambResponseTemplete;
     }
 }

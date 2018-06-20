@@ -10,7 +10,7 @@ import org.lamb.lambframework.core.config.JsonSymbolicFinalConfig;
  * E-mail userbean@outlook.com
  * The final interpretation of this procedure is owned by the author
  */
-public class ResponseTemplete {
+public class LambResponseTemplete {
 
     private String service_code;
 
@@ -49,16 +49,21 @@ public class ResponseTemplete {
         return data;
     }
 
-    public void setData(Object data) {
+    private void setData(Object data) {
         this.data = data;
     }
 
-    public ResponseTemplete(Object data){
+    public LambResponseTemplete(Object data){
         this.data = data;
     }
 
-    public ResponseTemplete(){
+    public LambResponseTemplete(){
 
     }
 
+
+    public static LambResponseTemplete converter(Object data){
+        LambResponseTemplete lambResponseTemplete = new LambResponseTemplete(data);
+        return lambResponseTemplete;
+    }
 }
