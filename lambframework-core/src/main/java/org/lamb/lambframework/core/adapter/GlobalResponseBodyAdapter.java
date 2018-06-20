@@ -32,6 +32,7 @@ public class GlobalResponseBodyAdapter implements ResponseBodyAdvice {
             if(!(returnValue instanceof LambResponseTemplete)){
                 throw new EventException(ExceptionEnum.ES00000023);
             }
+            return (LambResponseTemplete) returnValue;
         }
         return new LambResponseTemplete();
     }
