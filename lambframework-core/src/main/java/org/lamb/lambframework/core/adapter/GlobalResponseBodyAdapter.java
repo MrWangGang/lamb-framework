@@ -1,12 +1,12 @@
 package org.lamb.lambframework.core.adapter;
 
-import org.lamb.lambframework.core.templete.ResponseTemplete;
 import org.lamb.lambframework.core.annotation.LambFormatJson;
+import org.lamb.lambframework.core.templete.ResponseTemplete;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
-import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 /**
@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  * E-mail userbean@outlook.com
  * The final interpretation of this procedure is owned by the author
  */
-@ControllerAdvice(annotations = LambFormatJson.class)
+@RestControllerAdvice(annotations = LambFormatJson.class)
 public class GlobalResponseBodyAdapter implements ResponseBodyAdvice {
 
 
@@ -24,9 +24,12 @@ public class GlobalResponseBodyAdapter implements ResponseBodyAdvice {
     }
 
     @Override
-    public Object beforeBodyWrite(Object returnValue, MethodParameter methodParameter, MediaType mediaType, Class aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
+    public ResponseTemplete beforeBodyWrite(Object returnValue, MethodParameter methodParameter, MediaType mediaType, Class aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
         
         if(returnValue != null){
+            //if(!(returnValue instanceof ResponseTemplete)){
+            //    throw new EventException(ExceptionEnum.ES00000023);
+            //}
             return new ResponseTemplete(returnValue);
         }
         return new ResponseTemplete();
