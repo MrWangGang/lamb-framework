@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 /**
  * Created by WangGang on 2017/6/22 0022.
  * E-mail userbean@outlook.com
@@ -30,10 +33,15 @@ public class GlobalExceptionAdapter {
         logger.debug("e message "+e.getMessage());
         logger.debug("e localizedMessage "+e.getLocalizedMessage());
         logger.debug("e bean "+e);
+        StringWriter sw = new StringWriter();
+        e.printStackTrace(new PrintWriter(sw, true));
+        String str = sw.toString();
+        logger.debug(str);
         if(e instanceof GlobalException){
             return result(((GlobalException)e).getCode(),((GlobalException)e).getMessage());
         }
         else if (e instanceof MissingServletRequestParameterException) {
+            e.printStackTrace();
             return result(ExceptionEnum.EI00000020.getCode(),ExceptionEnum.EI00000020.getMessage());
         } else if (e instanceof MethodArgumentNotValidException) {
             return result(ExceptionEnum.EI00000020.getCode(),ExceptionEnum.EI00000020.getMessage());

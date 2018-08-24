@@ -66,4 +66,9 @@ public class LambResponseTemplete {
         LambResponseTemplete lambResponseTemplete = new LambResponseTemplete(data);
         return lambResponseTemplete;
     }
+
+    public static LambResponseTemplete example(){
+        LambResponseTemplete lambResponseTemplete = new LambResponseTemplete();
+        return lambResponseTemplete;
+    }
 }

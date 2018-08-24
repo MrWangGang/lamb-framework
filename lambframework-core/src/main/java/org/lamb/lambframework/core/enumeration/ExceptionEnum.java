@@ -30,7 +30,10 @@ public enum ExceptionEnum {
     ES00000021("ES00000021","调用失败"),
     ES00000022("ES00000022","copy bean throw execption"),
     ES00000023("ES00000023","接口返回类型必须为LambResponseTemplete"),
+    ES00000024("ES00000024","缺少训练样本"),
+    ES00000025("ES00000025","计算相似度出错"),
     EI00000020("EI00000020","必入参数未填写");
+
 
 
 
