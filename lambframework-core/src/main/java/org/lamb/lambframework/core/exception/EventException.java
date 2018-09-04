@@ -11,11 +11,7 @@ import org.lamb.lambframework.core.exception.basic.GlobalException;
 public class EventException extends GlobalException {
 
     public EventException(ExceptionEnum error) {
-        super(error);
-    }
-
-    public EventException(String code, String message) {
-        super(code,message);
+        super(error.getCode(),error.getMessage());
     }
 
 }

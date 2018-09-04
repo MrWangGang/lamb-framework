@@ -2,7 +2,7 @@ package org.lamb.lambframework.core.templete;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.lamb.lambframework.core.config.JsonSymbolicFinalConfig;
 
 /**

@@ -1,3 +1,4 @@
+/*
 package org.lamb.lambframework.core.adapter;
 
 import org.lamb.lambframework.core.annotation.LambFormatJson;
@@ -9,13 +10,15 @@ import org.springframework.http.MediaType;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
+
+*/
 /**
  * Created by WangGang on 2017/6/22 0022.
  * E-mail userbean@outlook.com
  * The final interpretation of this procedure is owned by the author
- */
+ *//*
+
 @RestControllerAdvice(annotations = LambFormatJson.class)
 public class GlobalResponseBodyAdapter implements ResponseBodyAdvice {
 
@@ -37,3 +40,4 @@ public class GlobalResponseBodyAdapter implements ResponseBodyAdvice {
         return new LambResponseTemplete();
     }
 }
+*/

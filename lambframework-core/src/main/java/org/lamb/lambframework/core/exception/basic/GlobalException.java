@@ -12,11 +12,7 @@ public abstract class GlobalException extends RuntimeException{
     private String code;
 
     private String message;
-
-    public GlobalException(ExceptionEnum error){
-            this.code = error.getCode();
-            this.message = error.getMessage();
-    }
+    
 
     public GlobalException(String code, String message){
         this.code = code;

@@ -3,7 +3,7 @@ package org.lamb.lambframework.core.util;
 
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.Converter;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.lamb.lambframework.core.enumeration.ExceptionEnum;
 import org.lamb.lambframework.core.exception.EventException;
 
@@ -35,17 +35,17 @@ public class BeanPlasticityUtill {
                     return null;
                 }
                 if (!(value instanceof String)) {
-                    throw new EventException(ExceptionEnum.ES00000022.getCode(),"类型不匹配String");
+                    throw new EventException(ExceptionEnum.ES00000023);
                 }
                 if (StringUtils.isBlank((String) value)) {
-                    throw new EventException(ExceptionEnum.ES00000022.getCode(),"要转成date的value不能为空");
+                    throw new EventException(ExceptionEnum.ES00000024);
                 }
 
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                 try {
                     return df.parse((String) value);
                 } catch (ParseException e) {
-                    throw new EventException(ExceptionEnum.ES00000022.getCode(),"日期转化失败");
+                    throw new EventException(ExceptionEnum.ES00000025);
                 }
             }
         }, java.util.Date.class);

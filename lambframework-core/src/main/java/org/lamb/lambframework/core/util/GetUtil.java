@@ -2,7 +2,7 @@ package org.lamb.lambframework.core.util;
 
 import org.lamb.lambframework.core.exception.EventException;
 import org.lamb.lambframework.core.enumeration.ExceptionEnum;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Map;
 

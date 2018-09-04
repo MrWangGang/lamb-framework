@@ -1,7 +1,6 @@
 package org.lamb.lambframework.core.adapter;
-
-import org.apache.log4j.Logger;
 import org.lamb.lambframework.core.enumeration.ExceptionEnum;
+import org.lamb.lambframework.core.exception.EventException;
 import org.lamb.lambframework.core.exception.basic.GlobalException;
 import org.lamb.lambframework.core.templete.LambResponseTemplete;
 import org.springframework.http.HttpStatus;
@@ -11,6 +10,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -23,28 +24,25 @@ import java.io.StringWriter;
 @RestControllerAdvice
 public class GlobalExceptionAdapter {
 
-    private Logger logger = Logger.getLogger(GlobalExceptionAdapter.class);
+    private Logger logger = LoggerFactory.getLogger(GlobalExceptionAdapter.class);
 
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler({Exception.class})
     @ResponseBody
     public LambResponseTemplete handleTransferException(Exception e) {
-        logger.debug("e message "+e.getMessage());
-        logger.debug("e localizedMessage "+e.getLocalizedMessage());
-        logger.debug("e bean "+e);
         StringWriter sw = new StringWriter();
         e.printStackTrace(new PrintWriter(sw, true));
         String str = sw.toString();
         logger.debug(str);
         if(e instanceof GlobalException){
             return result(((GlobalException)e).getCode(),((GlobalException)e).getMessage());
-        }
-        else if (e instanceof MissingServletRequestParameterException) {
-            e.printStackTrace();
-            return result(ExceptionEnum.EI00000020.getCode(),ExceptionEnum.EI00000020.getMessage());
-        } else if (e instanceof MethodArgumentNotValidException) {
-            return result(ExceptionEnum.EI00000020.getCode(),ExceptionEnum.EI00000020.getMessage());
+        }  else if (e.getCause()!=null) {
+            if(e.getCause() instanceof GlobalException){
+                return result(((GlobalException)e.getCause()).getCode(),((GlobalException)e.getCause()).getMessage());
+            }
+        }else if (e instanceof MethodArgumentNotValidException) {
+            return result(ExceptionEnum.EI00000001.getCode(),ExceptionEnum.EI00000001.getMessage());
         } else if (e instanceof IllegalArgumentException) {
             return result(ExceptionEnum.ES00000019.getCode(),ExceptionEnum.ES00000019.getMessage());
         } else if (e instanceof NullPointerException) {
@@ -53,9 +51,9 @@ public class GlobalExceptionAdapter {
             return result(ExceptionEnum.ES00000019.getCode(),ExceptionEnum.ES00000019.getMessage());
         }else if ( e instanceof Exception){
             return result(ExceptionEnum.ES00000019.getCode(),ExceptionEnum.ES00000019.getMessage());
-        }else{
-            return result(ExceptionEnum.ES00000019.getCode(),ExceptionEnum.ES00000019.getMessage());
         }
+
+        return result(ExceptionEnum.ES00000019.getCode(),ExceptionEnum.ES00000019.getMessage());
     }
 
     private LambResponseTemplete result(String code, String message){

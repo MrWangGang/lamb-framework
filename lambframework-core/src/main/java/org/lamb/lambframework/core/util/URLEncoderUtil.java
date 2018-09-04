@@ -37,7 +37,7 @@ public class URLEncoderUtil {
         }
         String s = sb.toString();
         if (s.endsWith("&")) {
-            s = org.apache.commons.lang.StringUtils.substringBeforeLast(s, "&");
+            s = org.apache.commons.lang3.StringUtils.substringBeforeLast(s, "&");
         }
         StringBuffer buffer = new StringBuffer();
         buffer.append(url).append("?").append(s);
