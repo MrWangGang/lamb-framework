@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
 import org.springframework.core.io.buffer.DataBufferFactory;
+import org.springframework.data.redis.RedisSystemException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
@@ -17,6 +18,8 @@ import reactor.core.publisher.Mono;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Arrays;
+import java.util.NoSuchElementException;
 
 /**
  * Created by WangGang on 2017/6/22 0022.
@@ -40,11 +43,13 @@ public class GlobalExceptionHandler implements ErrorWebExceptionHandler {
         logger.debug(str);
         if(e instanceof GlobalException){
             return result(((GlobalException)e).getCode(),((GlobalException)e).getMessage());
-        }  else if (e.getCause()!=null) {
-            if(e.getCause() instanceof GlobalException){
-                return result(((GlobalException)e.getCause()).getCode(),((GlobalException)e.getCause()).getMessage());
-            }
-        }else if (e instanceof MethodArgumentNotValidException) {
+        } else if(checkGlobalExcetionOStackTrace(e.getStackTrace())){
+            return result(((GlobalException)e).getCode(),((GlobalException)e).getMessage());
+        } else if(e instanceof NoSuchElementException){
+            return result(ExceptionEnum.ES00000027.getCode(),ExceptionEnum.ES00000027.getMessage());
+        }else if(e instanceof RedisSystemException){
+            return result(ExceptionEnum.ES00000026.getCode(),ExceptionEnum.ES00000026.getMessage());
+        } else if (e instanceof MethodArgumentNotValidException) {
             return result(ExceptionEnum.EI00000001.getCode(),ExceptionEnum.EI00000001.getMessage());
         } else if (e instanceof IllegalArgumentException) {
             return result(ExceptionEnum.ES00000000.getCode(),ExceptionEnum.ES00000000.getMessage());
@@ -80,4 +85,11 @@ public class GlobalExceptionHandler implements ErrorWebExceptionHandler {
                     }
                 }));
     }
+
+    private Boolean checkGlobalExcetionOStackTrace(StackTraceElement[] es){
+       return Arrays.stream(es).anyMatch(e -> GlobalException.class.getName().equals(e.getClassName()));
+    }
+
+
+
 }

@@ -34,6 +34,10 @@ public enum ExceptionEnum {
     ES00000023("ES00000023","类型不匹配String"),
     ES00000024("ES00000024","要转成date的value不能为空"),
     ES00000025("ES00000025","日期转化失败"),
+    ES00000026("ES00000026","redis链接失败"),
+    ES00000027("ES00000027","空指针异常"),
+
+
     //系统异常-spring security 异常 - 權限類異常
 
     EA00000000("EA00000000","身份认证失败"), //AuthenticationException
