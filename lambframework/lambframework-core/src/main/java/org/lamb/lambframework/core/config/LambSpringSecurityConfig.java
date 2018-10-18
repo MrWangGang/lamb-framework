@@ -30,27 +30,22 @@ public abstract class LambSpringSecurityConfig {
     public SecurityWebFilterChain securitygWebFilterChain(ServerHttpSecurity http) {
         http.httpBasic().disable();
         http.formLogin().disable();
-        http.csrf().disable();
         http.logout().disable();
         http.headers().disable();
+        http.csrf().disable();
         http.requestCache().disable();
         http.exceptionHandling().authenticationEntryPoint(lambServerAuthenticationEntryPoint);
         http.exceptionHandling().accessDeniedHandler(lambServerAccessDeniedHandler);
-        http.authorizeExchange().pathMatchers("/css/**","/image/*").permitAll();
-        http.authorizeExchange().pathMatchers("/v2/api-docs").permitAll();
+        http.authorizeExchange().pathMatchers("/").permitAll();
+        http.authorizeExchange().pathMatchers("/csrf").permitAll();
         http.authorizeExchange().pathMatchers("/v2/api-docs/**").permitAll();
-        http.authorizeExchange().pathMatchers("/swagger-ui.html").permitAll();
         http.authorizeExchange().pathMatchers("/swagger-ui.html/**").permitAll();
-        http.authorizeExchange().pathMatchers("/swagger-resources").permitAll();
         http.authorizeExchange().pathMatchers("/swagger-resources/**").permitAll();
-        http.authorizeExchange().pathMatchers("/configuration/ui").permitAll();
-        http.authorizeExchange().pathMatchers("/configuration/security").permitAll();
         http.authorizeExchange().pathMatchers("/webjars/**").permitAll();
         strategy(http.authorizeExchange());
-        http.authorizeExchange().anyExchange().permitAll();
+        http.authorizeExchange().anyExchange().authenticated();
         return http.build();
     }
-
 
     @Bean
     public PasswordEncoder passwordEncoder() {
