@@ -17,7 +17,6 @@ import javax.annotation.Resource;
  * @author: Mr.WangGang
  * @create: 2018-08-29 17:08
  **/
-
 public abstract class LambSpringSecurityConfig {
 
     @Resource
@@ -42,9 +41,7 @@ public abstract class LambSpringSecurityConfig {
         http.authorizeExchange().pathMatchers("/swagger-ui.html/**").permitAll();
         http.authorizeExchange().pathMatchers("/swagger-resources/**").permitAll();
         http.authorizeExchange().pathMatchers("/webjars/**").permitAll();
-        strategy(http.authorizeExchange());
-        http.authorizeExchange().anyExchange().authenticated();
-        return http.build();
+        return strategy(http);
     }
 
     @Bean
@@ -52,7 +49,8 @@ public abstract class LambSpringSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    public abstract ServerHttpSecurity.AuthorizeExchangeSpec strategy(ServerHttpSecurity.AuthorizeExchangeSpec authorizeExchangeSpec);
-
-
+    protected SecurityWebFilterChain strategy(ServerHttpSecurity http){
+        http.authorizeExchange().anyExchange().authenticated();
+        return http.build();
+    }
 }

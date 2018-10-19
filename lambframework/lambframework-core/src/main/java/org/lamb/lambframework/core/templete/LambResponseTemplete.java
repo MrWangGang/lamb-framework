@@ -4,10 +4,6 @@ package org.lamb.lambframework.core.templete;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.apache.commons.lang3.StringUtils;
 import org.lamb.lambframework.core.config.JsonSymbolicFinalConfig;
-import org.springframework.web.reactive.function.server.ServerResponse;
-import reactor.core.publisher.Mono;
-
-import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 /**
  * Created by WangGang on 2017/7/4 0004.
@@ -64,16 +60,4 @@ public class LambResponseTemplete {
     public LambResponseTemplete(){
 
     }
-
-    public static Mono<ServerResponse> converter(Object data){
-        LambResponseTemplete lambResponseTemplete = new LambResponseTemplete(data);
-        return ServerResponse.ok().contentType(APPLICATION_JSON).body(Mono.just(lambResponseTemplete),LambResponseTemplete.class);
-    }
-
-    public static Mono<ServerResponse> example(){
-        LambResponseTemplete lambResponseTemplete = new LambResponseTemplete();
-        return ServerResponse.ok().contentType(APPLICATION_JSON).body(Mono.just(lambResponseTemplete),LambResponseTemplete.class);
-    }
-
-
 }

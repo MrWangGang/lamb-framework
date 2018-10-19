@@ -13,5 +13,4 @@ public class EventException extends GlobalException {
     public EventException(ExceptionEnum error) {
         super(error.getCode(),error.getMessage());
     }
-
 }

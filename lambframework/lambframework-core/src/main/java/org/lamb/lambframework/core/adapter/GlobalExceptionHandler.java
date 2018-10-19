@@ -13,6 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.bind.support.WebExchangeBindException;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
@@ -27,11 +30,13 @@ import java.util.NoSuchElementException;
  * The final interpretation of this procedure is owned by the author
  */
 @Component
+@RestControllerAdvice
 public class GlobalExceptionHandler implements ErrorWebExceptionHandler {
 
     private Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @Override
+    @ExceptionHandler(WebExchangeBindException.class)
     public Mono<Void> handle(ServerWebExchange serverWebExchange, Throwable throwable) {
         return write(serverWebExchange.getResponse(),handleTransferException(throwable));
     }
@@ -45,12 +50,14 @@ public class GlobalExceptionHandler implements ErrorWebExceptionHandler {
             return result(((GlobalException)e).getCode(),((GlobalException)e).getMessage());
         } else if(checkGlobalExcetionOStackTrace(e.getStackTrace())){
             return result(((GlobalException)e).getCode(),((GlobalException)e).getMessage());
-        } else if(e instanceof NoSuchElementException){
+        } else if(e instanceof WebExchangeBindException){
+            return result(ExceptionEnum.EI00000000.getCode(),ExceptionEnum.EI00000000.getMessage());
+        }else if(e instanceof NoSuchElementException){
             return result(ExceptionEnum.ES00000027.getCode(),ExceptionEnum.ES00000027.getMessage());
         }else if(e instanceof RedisSystemException){
             return result(ExceptionEnum.ES00000026.getCode(),ExceptionEnum.ES00000026.getMessage());
         } else if (e instanceof MethodArgumentNotValidException) {
-            return result(ExceptionEnum.EI00000001.getCode(),ExceptionEnum.EI00000001.getMessage());
+            return result(ExceptionEnum.EI00000000.getCode(),ExceptionEnum.EI00000000.getMessage());
         } else if (e instanceof IllegalArgumentException) {
             return result(ExceptionEnum.ES00000000.getCode(),ExceptionEnum.ES00000000.getMessage());
         } else if (e instanceof NullPointerException) {

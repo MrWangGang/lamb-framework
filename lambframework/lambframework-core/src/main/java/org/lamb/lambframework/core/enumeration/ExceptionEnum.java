@@ -44,7 +44,7 @@ public enum ExceptionEnum {
     EA00000001("EA00000001","访问被拒绝"), //AccessDeniedException
 
 
-    EI00000001("EI00000001","必入参数未填写");
+    EI00000000("EI00000000","必入参数未填写");
 
     // 成员变量
     private String code;

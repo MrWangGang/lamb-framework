@@ -34,9 +34,6 @@ import static org.lamb.lambframework.core.enumeration.ExceptionEnum.ES00000000;
  * @author: Mr.WangGang
  * @create: 2018-10-17 下午 2:55
  **/
-class user{
-    private String name;
-}
 public abstract class LambSwaggerConfig extends SwaggerResponseMessageReader implements WebFluxConfigurer {
 
     private final TypeNameExtractor typeNameExtractor;
