@@ -4,8 +4,7 @@ org lamb devlopment framework
 自己写的框架代码,整合了spring boot2 webflux  , spring security ，swagger,spring data redis 和 webflux 的handle级别全局异常拦截和规范
 持久层框架使用了mybatis tk.mapper作为插件，减少开发成本
 
-# 框架核心配置,轻松依赖
-
+# 框架核心配置
 在你的父pom中 依赖框架
     <parent>
         <groupId>org.lamb.framework</groupId>
@@ -13,7 +12,6 @@ org lamb devlopment framework
         <version>0.0.1-SNAPSHOT</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-	
 	并加入依赖lamb的核心组件
 	    <dependency>
             <groupId>org.lamb.framework</groupId>
