@@ -6,18 +6,31 @@ org lamb devlopment framework
 
 # 框架核心配置
 在你的父pom中 依赖框架
+
+
+
     <parent>
         <groupId>org.lamb.framework</groupId>
         <artifactId>lamb-framework</artifactId>
         <version>0.0.1-SNAPSHOT</version>
         <relativePath/> <!-- lookup parent from repository -->
-    </parent>
+    </parent>.
+	
+	
+	
+	
+	
+	
+	
 	并加入依赖lamb的核心组件
 	    <dependency>
             <groupId>org.lamb.framework</groupId>
             <artifactId>lamb-framework-core</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+		
+		
+		
 
 #框架配置
 #自定义自定义异常
