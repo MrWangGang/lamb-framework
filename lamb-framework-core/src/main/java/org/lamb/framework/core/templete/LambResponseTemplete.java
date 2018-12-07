@@ -12,33 +12,33 @@ import org.lamb.framework.core.config.JsonSymbolicFinalConfig;
  */
 public class LambResponseTemplete {
 
-    private String service_code;
+    private String serviceCode;
 
-    private String service_message;
+    private String serviceMessage;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Object data;
 
-    public String getService_code() {
-        if(StringUtils.isBlank(service_code)){
-            service_code = JsonSymbolicFinalConfig.DEFAULT_SUCCESS_SERVICE_CODE;
+    public String getServiceCode() {
+        if(StringUtils.isBlank(serviceCode)){
+            serviceCode = JsonSymbolicFinalConfig.DEFAULT_SUCCESS_SERVICE_CODE;
         }
-        return service_code;
+        return serviceCode;
     }
 
-    public void setService_code(String service_code) {
-        this.service_code = service_code;
+    public void setServiceCode(String service_code) {
+        this.serviceCode = service_code;
     }
 
-    public String getService_message() {
-        if(StringUtils.isBlank(service_message)){
-            service_message = JsonSymbolicFinalConfig.DEFAULT_SUCCESS_SERVICE_MESSAGE;
+    public String getServiceMessage() {
+        if(StringUtils.isBlank(serviceMessage)){
+            serviceMessage = JsonSymbolicFinalConfig.DEFAULT_SUCCESS_SERVICE_MESSAGE;
         }
-        return service_message;
+        return serviceMessage;
     }
 
-    public void setService_message(String service_message) {
-        this.service_message = service_message;
+    public void setServiceMessage(String service_message) {
+        this.serviceMessage = service_message;
     }
 
     public Object getData() {

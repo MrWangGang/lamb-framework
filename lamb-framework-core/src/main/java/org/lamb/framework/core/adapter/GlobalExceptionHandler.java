@@ -1,9 +1,10 @@
 package org.lamb.framework.core.adapter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.lamb.framework.core.exception.basic.GlobalException;
+import org.lamb.framework.common.enumeration.ExceptionEnum;
+import org.lamb.framework.common.exception.basic.GlobalException;
 import org.lamb.framework.core.templete.LambResponseTemplete;
-import org.lamb.framework.core.enumeration.ExceptionEnum;
+import org.lamb.framework.common.util.StackTraceElementUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
@@ -21,7 +22,6 @@ import reactor.core.publisher.Mono;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 /**
@@ -48,7 +48,7 @@ public class GlobalExceptionHandler implements ErrorWebExceptionHandler {
         logger.debug(str);
         if(e instanceof GlobalException){
             return result(((GlobalException)e).getCode(),((GlobalException)e).getMessage());
-        } else if(checkGlobalExcetionOStackTrace(e.getStackTrace())){
+        } else if(StackTraceElementUtil.checkGlobalExcetionOStackTrace(e.getStackTrace())){
             return result(((GlobalException)e).getCode(),((GlobalException)e).getMessage());
         } else if(e instanceof WebExchangeBindException){
             return result(ExceptionEnum.EI00000000.getCode(),ExceptionEnum.EI00000000.getMessage());
@@ -72,8 +72,8 @@ public class GlobalExceptionHandler implements ErrorWebExceptionHandler {
 
     private LambResponseTemplete result(String code, String message){
         LambResponseTemplete lambResponseTemplete = new LambResponseTemplete();
-        lambResponseTemplete.setService_code(code);
-        lambResponseTemplete.setService_message(message);
+        lambResponseTemplete.setServiceCode(code);
+        lambResponseTemplete.setServiceMessage(message);
         return lambResponseTemplete;
     }
 
@@ -93,9 +93,6 @@ public class GlobalExceptionHandler implements ErrorWebExceptionHandler {
                 }));
     }
 
-    private Boolean checkGlobalExcetionOStackTrace(StackTraceElement[] es){
-       return Arrays.stream(es).anyMatch(e -> GlobalException.class.getName().equals(e.getClassName()));
-    }
 
 
 

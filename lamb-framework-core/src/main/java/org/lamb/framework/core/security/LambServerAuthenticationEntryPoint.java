@@ -1,7 +1,7 @@
 package org.lamb.framework.core.security;
 
-import org.lamb.framework.core.exception.EventException;
-import org.lamb.framework.core.enumeration.ExceptionEnum;
+import org.lamb.framework.common.enumeration.ExceptionEnum;
+import org.lamb.framework.common.exception.EventException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.server.ServerAuthenticationEntryPoint;
 import org.springframework.stereotype.Component;

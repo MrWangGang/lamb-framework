@@ -1,6 +1,7 @@
 package org.lamb.framework.core.config;
 
-import org.lamb.framework.core.enumeration.ExceptionEnum;
+
+import org.lamb.framework.common.enumeration.ExceptionEnum;
 
 /**
  * Created by WangGang on 2017/7/5 0005.

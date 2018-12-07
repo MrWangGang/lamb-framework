@@ -1,14 +1,12 @@
 package org.lamb.framework.core.config;
 
 import com.fasterxml.classmate.TypeResolver;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.apache.commons.collections.CollectionUtils;
-import org.lamb.framework.core.exception.EventException;
+import org.lamb.framework.common.enumeration.ExceptionEnum;
+import org.lamb.framework.common.util.JsonUtil;
 import org.lamb.framework.core.templete.LambResponseTemplete;
-import org.lamb.framework.core.enumeration.ExceptionEnum;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.reactive.config.ResourceHandlerRegistry;
 import org.springframework.web.reactive.config.WebFluxConfigurer;
@@ -26,15 +24,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import static org.lamb.framework.core.enumeration.ExceptionEnum.E000000000;
-import static org.lamb.framework.core.enumeration.ExceptionEnum.ES00000000;
+import static org.lamb.framework.common.enumeration.ExceptionEnum.E000000000;
+import static org.lamb.framework.common.enumeration.ExceptionEnum.ES00000000;
+
 
 /**
  * @description: swagger配置
  * @author: Mr.WangGang
  * @create: 2018-10-17 下午 2:55
  **/
-public abstract class LambSwaggerConfig extends SwaggerResponseMessageReader implements WebFluxConfigurer {
+public  class LambSwaggerConfig extends SwaggerResponseMessageReader implements WebFluxConfigurer {
 
     private final TypeNameExtractor typeNameExtractor;
     private final TypeResolver typeResolver;
@@ -43,6 +42,7 @@ public abstract class LambSwaggerConfig extends SwaggerResponseMessageReader imp
         super(typeNameExtractor, typeResolver);
         this.typeNameExtractor = typeNameExtractor;
         this.typeResolver = typeResolver;
+        api();
     }
     @Override
     protected Set<ResponseMessage> read(OperationContext context) {
@@ -52,7 +52,6 @@ public abstract class LambSwaggerConfig extends SwaggerResponseMessageReader imp
         return set;
     }
 
-    @Bean
     public Docket api() {
         List<Parameter> pars = new ArrayList<Parameter>();
         List<Parameter> parameters = unifiedParameter(new ParameterBuilder());
@@ -88,9 +87,13 @@ public abstract class LambSwaggerConfig extends SwaggerResponseMessageReader imp
 
 
 
-    public abstract ApiInfo apiInfo(ApiInfoBuilder apiInfoBuilder);
+    public  ApiInfo apiInfo(ApiInfoBuilder apiInfoBuilder){
+        return null;
+    };
 
-    public abstract List<Parameter> unifiedParameter(ParameterBuilder parameterBuilder);
+    public  List<Parameter> unifiedParameter(ParameterBuilder parameterBuilder){
+        return null;
+    };
 
     private List<ResponseMessage> unifiedResponse(){
         List list = Lists.newLinkedList();
@@ -121,13 +124,9 @@ public abstract class LambSwaggerConfig extends SwaggerResponseMessageReader imp
     }
     private String formJson(ExceptionEnum exceptionEnum){
         LambResponseTemplete lambResponseTemplete = new LambResponseTemplete();
-        lambResponseTemplete.setService_code(exceptionEnum.getCode());
-        lambResponseTemplete.setService_message(exceptionEnum.getMessage());
+        lambResponseTemplete.setServiceCode(exceptionEnum.getCode());
+        lambResponseTemplete.setServiceMessage(exceptionEnum.getMessage());
 
-        try {
-            return (new ObjectMapper()).writeValueAsString(lambResponseTemplete);
-        } catch (JsonProcessingException e) {
-            throw new EventException(ExceptionEnum.ES00000003);
-        }
+        return JsonUtil.objToString(lambResponseTemplete);
     }
 }

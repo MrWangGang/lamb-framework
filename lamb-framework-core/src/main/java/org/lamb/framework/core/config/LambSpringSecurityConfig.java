@@ -41,7 +41,8 @@ public abstract class LambSpringSecurityConfig {
         http.authorizeExchange().pathMatchers("/swagger-ui.html/**").permitAll();
         http.authorizeExchange().pathMatchers("/swagger-resources/**").permitAll();
         http.authorizeExchange().pathMatchers("/webjars/**").permitAll();
-        return strategy(http);
+        strategy(http);
+        return http.build();
     }
 
     @Bean
@@ -49,8 +50,7 @@ public abstract class LambSpringSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    protected SecurityWebFilterChain strategy(ServerHttpSecurity http){
+    protected void strategy(ServerHttpSecurity http){
         http.authorizeExchange().anyExchange().authenticated();
-        return http.build();
     }
 }
