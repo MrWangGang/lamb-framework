@@ -101,7 +101,7 @@ throw new EventException(EA00000007)
 	
 	public abstract class FoundationController extends LambHandler {
     public <T>Mono<LambResponseTemplete> returning(Class clazz,T data){
-        if(data == null){
+        if(data != null){
             try {
                 return returning(clazz.newInstance());
             }catch (IllegalAccessException e) {
