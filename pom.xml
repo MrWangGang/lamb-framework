@@ -9,6 +9,24 @@
 	<packaging>pom</packaging>
 	<name>lamb-framework</name>
 	<description>lamb framework</description>
+	<url>https://github.com/MrWangGang</url>
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<name>wanggang</name>
+			<email>userbean@outlook.com</email>
+		</developer>
+	</developers>
+	<scm>
+		<connection>scm:git:git@github.com/MrWangGang/lamb-framework.git</connection>
+		<developerConnection>scm:git:git@github.com/MrWangGang/lamb-framework.git</developerConnection>
+		<url>git@github.com/MrWangGang/lamb-framework.git</url>
+	</scm>
 
 
 	<parent>
@@ -140,9 +158,7 @@
 			<artifactId>validation-api</artifactId>
 			<version>2.0.1.Final</version>
 		</dependency>
-
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -163,6 +179,13 @@
 			</plugin>
 		</plugins>
 	</build>
+	<repositories>
+		<repository>
+			<id>jcenter-snapshots</id>
+			<name>jcenter</name>
+			<url>http://oss.jfrog.org/artifactory/oss-snapshot-local/</url>
+		</repository>
+	</repositories>
 	<modules>
 		<module>lamb-framework-core</module>
 		<module>lamb-framework-statemachine</module>

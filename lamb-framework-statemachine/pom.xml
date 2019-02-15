@@ -5,7 +5,7 @@
 	<artifactId>lamb-framework-statemachine</artifactId>
 	<name>lamb-framework-statemachine</name>
 	<description>lamb framework statemachine</description>
-
+	<url>https://github.com/MrWangGang</url>
 	<parent>
 		<groupId>org.lamb.framework</groupId>
 		<artifactId>lamb-framework</artifactId>
